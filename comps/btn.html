@@ -9,12 +9,11 @@
 			run()
 			{
 				console.log(this.props)
-				window[this.props.s][this.props.f]()
 			}
 		}
 	</script>
 
-	<div onclick="self.run()" class="w-[400px] cursor-pointer bg-white py-2 px-4 flex items-center justify-center rounded-xl text-xl font-medium">
+	<div onclick="{trigger}" class="w-[400px] cursor-pointer bg-white py-2 px-4 flex items-center justify-center rounded-xl text-xl font-medium">
 		{children}
 	</div>
 </template>

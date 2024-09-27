@@ -1,14 +1,78 @@
-<template rapid-name="game">
-	<script defer>
-		class Game extends Component
-		{
-			onComponentLoad()
-			{
-			}
-		}
-	</script>
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script defer type="text/javascript" src="https://spynets.github.io/RapidElements/bin/RapidElements.js" ></script>
+	</head>
 
-	<div>
-		<p>Game</p>
-	</div>
-</template>
+	<body>
+		<script defer>
+			function createScrambledPairs(imagePaths, n) {
+				if (n % 2 !== 0) {
+					throw new Error("Length n must be even.");
+				}
+		  
+				if (imagePaths.length < n / 2) {
+					throw new Error("Not enough unique images to create the specified number of pairs.");
+				}
+		  
+				let pairs = [];
+		  
+				let shuffledImages = [...imagePaths];
+				for (let i = shuffledImages.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[shuffledImages[i], shuffledImages[j]] = [shuffledImages[j], shuffledImages[i]];
+				}
+		  
+				for (let i = 0; i < n / 2; i++) {
+					pairs.push(shuffledImages[i], shuffledImages[i]);
+				}
+		  
+				for (let i = pairs.length - 1; i > 0; i--) {
+					const j = Math.floor(Math.random() * (i + 1));
+					[pairs[i], pairs[j]] = [pairs[j], pairs[i]];
+				}
+		  
+				return pairs;
+			}
+
+			function list(x, y, imgs)
+			{
+				to_return = "";
+
+				const cnt = x * y;
+				var n_arr = createScrambledPairs(imgs, cnt);
+
+				for (let index = 0; index < cnt; index++) {
+					to_return += `
+					<div style="background-image: url('${n_arr[index]}')" class="w-1/${x} h-1/${y} rounded-2xl bg-center bg-cover border border-1 border-blue-400"></div>
+					`;
+				}
+
+				document.getElementById("board").innerHTML = to_return;
+			}
+
+			function init()
+			{
+				const imgs = ["/gfx/1.png", "/gfx/2.png", "/gfx/3.png", "/gfx/4.png", "/gfx/5.png", "/gfx/6.png", "/gfx/7.png", "/gfx/8.png", "/gfx/9.png", "/gfx/10.png", "/gfx/11.png", "/gfx/12.png"]
+				
+				const queryStr = window.location.search;
+				const urlParams = new URLSearchParams(queryStr);
+				const x = urlParams.get("x")
+				const y = urlParams.get("y")
+
+				list(x, y, imgs)
+			}
+
+			window.addEventListener("load", (e) => {
+				init();
+				console.log("init")
+			})
+		</script>
+
+		<div class="w-full h-screen bg-yellow-400 flex flex-col items-center justify-center">
+			<div class="w-[90%] h-[70%] bg-blue-400 rounded-xl flex flex-row flex-wrap overflow-none" id="board">
+			</div>
+		</div>
+	</body>
+</html>
