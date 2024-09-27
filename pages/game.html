@@ -45,7 +45,7 @@
 
 				for (let index = 0; index < cnt; index++) {
 					to_return += `
-					<div style="background-image: url('${n_arr[index]}')" class="w-1/${x} h-1/${y} rounded-2xl bg-center bg-cover border border-1 border-blue-400"></div>
+					<div style="background-image: url('LL/${n_arr[index]}')" class="w-1/${x} h-1/${y} rounded-2xl bg-center bg-contain bg-no-repeat bg-white border border-2 border-blue-400 choice"></div>
 					`;
 				}
 
@@ -62,6 +62,14 @@
 				const y = urlParams.get("y")
 
 				list(x, y, imgs)
+
+				setTimeout(()=>{
+					const elems = document.getElementsByClassName("choice");
+					for (let i = 0; i < elems.length; i++) {
+						elems[i].style.backgroundSize = 0;
+						elems[i].style.backgroundColor = "#f59e0b";
+					}
+				}, 1000)
 			}
 
 			window.addEventListener("load", (e) => {
