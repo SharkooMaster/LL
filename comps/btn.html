@@ -4,16 +4,12 @@
 		{
 			onComponentLoad()
 			{
-			}
-
-			run()
-			{
 				console.log(this.props)
 			}
 		}
 	</script>
 
-	<div onclick="{trigger}" class="w-[400px] cursor-pointer bg-white py-2 px-4 flex items-center justify-center rounded-xl text-xl font-medium">
+	<a href="{this.props.url}" class="w-[400px] cursor-pointer bg-white py-2 px-4 flex items-center justify-center rounded-xl text-xl font-medium">
 		{children}
-	</div>
+	</a>
 </template>
