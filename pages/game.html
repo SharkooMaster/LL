@@ -76,11 +76,12 @@
 								console.log("NOT");
 								turn = (turn == 0) ? 1 : 0;
 
+								const _p = priorId;
 								setTimeout(() => {
 									document.getElementById(`img_${index}`).style.backgroundSize = 0;
 									document.getElementById(`img_${index}`).style.backgroundColor = "#f59e0b";
-									document.getElementById(priorId).style.backgroundSize = 0;
-									document.getElementById(priorId).style.backgroundColor = "#f59e0b";
+									document.getElementById(_p).style.backgroundSize = 0;
+									document.getElementById(_p).style.backgroundColor = "#f59e0b";
 								}, 1000)
 							}
 							selectedCnt = 0;
