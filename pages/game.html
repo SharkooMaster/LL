@@ -70,6 +70,12 @@
 								console.log(`${turn}: ${score[turn]}p`)
 
 								document.getElementById(`score_${turn}`).innerHTML = score[turn].toString() + 'p';
+								if(score[0] + score[1] == ((x * y) / 2))
+								{
+									console.log("Done");
+									document.getElementById("playerCongrats").innerHTML = `Player ${(score[0] > score[1]) ? 1 : 2} won`;
+									togglePop();
+								}
 							}
 							else
 							{
@@ -115,6 +121,12 @@
 				}, 1500)
 			}
 
+			function togglePop()
+			{
+				document.getElementById("pop").style.display = (isToggled) ? "none" : "flex";
+				isToggled = !isToggled;
+			}
+
 			window.addEventListener("load", (e) => {
 				init();
 				console.log("init")
@@ -125,7 +137,20 @@
 			var priorId = "";
 			var score = [0,0];
 			var turn = 0;
+			var isToggled = false;
 		</script>
+
+		<div class="absolute top-0 left-0 h-screen w-screen hidden items-center justify-center" id="pop">
+			<div class="absolute w-full h-screen z-0 bg-[#00000080]" onclick="togglePop()"></div>
+			<div class="absolute z-10 bg-white w-[80%] h-[400px] flex flex-col items-center justify-center rounded-xl">
+				<p class="text-3xl">Congratulations!</p>
+				<p class="text-xl" id="playerCongrats"></p>
+				<div class="flex w-full flex-row justify-evenly items-center py-2 px-4">
+					<div class="rounded-lg px-4 py-2 bg-blue-400 flex items-center justify-center text-white cursor-pointer" onclick="window.location.reload();">Rematch</div>
+					<a class="rounded-lg px-4 py-2 bg-blue-400 flex items-center justify-center text-none text-white" href="/">Home</a>
+				</div>
+			</div>
+		</div>
 
 		<div class="w-full h-screen bg-yellow-400 flex flex-col items-center justify-center">
 			<div class="w-full px-12 py-4 flex flex-row justify-between items-center">
