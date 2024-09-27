@@ -45,11 +45,53 @@
 
 				for (let index = 0; index < cnt; index++) {
 					to_return += `
-					<div style="background-image: url('..${n_arr[index]}')" class="w-1/${x} h-1/${y} rounded-2xl bg-center bg-contain bg-no-repeat bg-white border border-2 border-blue-400 choice"></div>
+					<div id='img_${index}' style="background-image: url('..${n_arr[index]}')" class="w-1/${x} h-1/${y} rounded-2xl bg-center bg-contain bg-no-repeat bg-white border border-2 border-blue-400 choice"></div>
 					`;
 				}
 
 				document.getElementById("board").innerHTML = to_return;
+
+				for (let index = 0; index < cnt; index++) {
+					document.getElementById(`img_${index}`).addEventListener("click", () =>{
+						console.log("asd");
+						document.getElementById(`img_${index}`).style.removeProperty("background-size");
+						document.getElementById(`img_${index}`).style.backgroundColor= "#FFFFFF";
+
+						selectedCnt += 1;
+
+						if(selectedCnt == 2)
+						{
+							// check if correct;
+							if(selected == document.getElementById(`img_${index}`).style.backgroundImage.split('"')[1])
+							{
+								console.log("SAME");
+								score[turn] += 1;
+
+								console.log(`${turn}: ${score[turn]}p`)
+
+								document.getElementById(`score_${turn}`).innerHTML = score[turn].toString() + 'p';
+							}
+							else
+							{
+								console.log("NOT");
+								turn = (turn == 0) ? 1 : 0;
+
+								setTimeout(() => {
+									document.getElementById(`img_${index}`).style.backgroundSize = 0;
+									document.getElementById(`img_${index}`).style.backgroundColor = "#f59e0b";
+									document.getElementById(priorId).style.backgroundSize = 0;
+									document.getElementById(priorId).style.backgroundColor = "#f59e0b";
+								}, 1000)
+							}
+							selectedCnt = 0;
+							selected = "";
+						}
+						else{
+							selected = document.getElementById(`img_${index}`).style.backgroundImage.split('"')[1];
+							priorId = `img_${index}`;
+						}
+					})
+				}
 			}
 
 			function init()
@@ -69,16 +111,34 @@
 						elems[i].style.backgroundSize = 0;
 						elems[i].style.backgroundColor = "#f59e0b";
 					}
-				}, 1000)
+				}, 1500)
 			}
 
 			window.addEventListener("load", (e) => {
 				init();
 				console.log("init")
-			})
+			});
+
+			var selectedCnt = 0;
+			var selected = "";
+			var priorId = "";
+			var score = [0,0];
+			var turn = 0;
 		</script>
 
 		<div class="w-full h-screen bg-yellow-400 flex flex-col items-center justify-center">
+			<div class="w-full px-12 py-4 flex flex-row justify-between items-center">
+				<div class="flex flex-col bg-blue-400 items-center justify-center rounded-xl py-4 px-8">
+					<p class="text-2xl font-medium">Player 1</p>
+					<p class="text-xl" id="score_0">0p</p>
+				</div>
+
+				<div class="flex flex-col bg-blue-400 items-center justify-center rounded-xl py-4 px-8">
+					<p class="text-2xl font-medium">Player 2</p>
+					<p class="text-xl" id="score_1">0p</p>
+				</div>
+			</div>
+
 			<div class="w-[90%] h-[70%] bg-blue-400 rounded-xl flex flex-row flex-wrap overflow-none" id="board">
 			</div>
 		</div>
