@@ -6,19 +6,9 @@
 	</head>
 
 	<body>
-		<!-- imports the router -->
-		<div include-html="Router.html"></div>
-
-		<div include-html="pages/home.html"></div>
+		<div include-html="./pages/home.html"></div>
 		<div include-html="pages/game.html"></div>
 
-		<router>
-			<page path="home">
-				<home></home>
-			</page>
-			<page path="game">
-				<game></game>
-			</page>
-		</router>
+		<home></home>
 	</body>
 </html>
