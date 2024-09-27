@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script defer type="text/javascript" src="https://spynets.github.io/RapidElements/bin/RapidElements.js" ></script>
+	</head>
+
+	<body>
+		<!-- imports the router -->
+		<div include-html="Router.html"></div>
+
+		<div include-html="pages/home.html"></div>
+		<div include-html="pages/game.html"></div>
+
+		<router>
+			<page path="home">
+				<home></home>
+			</page>
+			<page path="game">
+				<game></game>
+			</page>
+		</router>
+	</body>
+</html>
